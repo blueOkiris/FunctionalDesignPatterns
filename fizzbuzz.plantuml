@@ -1,9 +1,65 @@
 @startuml FizzBuzz
 
-interface Output {
-
+class Program {
+    + {static} Main(args : string[])
 }
 
-interface 
+interface IRange {
+    + Values() : IValue[]
+}
+
+interface IOutput {
+    + Output(vals : string[])
+}
+
+interface IComparable
+
+interface IValue {
+    + Data() : object
+    + ToString() : string
+}
+
+interface IFizzBuzzer {
+    + InterceptValue(value : IValue) : string
+}
+
+class ConsoleOutput {
+    + Output(vals : string[])
+}
+
+class IntRange {
+    - len : int
+
+    + IntRange(len : int)
+    + Values() : IntValue[]
+}
+
+class IntValue {
+    - data : int
+
+    + IntValue(data : int)
+    + Data() : int
+    + ToString() : string
+}
+
+class TraditionalFizzBuzzer {
+    + interceptValue(value : IntValue) : string
+}
+
+IOutput --> IRange
+IRange --> IValue
+IRange ..> IValue
+IValue -u-|> IComparable
+IFizzBuzzer --> IValue
+
+ConsoleOutput -u-|> IOutput
+IntRange -u-|> IRange
+IntValue -u-|> IValue
+TraditionalFizzBuzzer -u-|> IFizzBuzzer
+
+Program .d..> ConsoleOutput
+Program .d..> IntRange
+Program .d...> TraditionalFizzBuzzer
+IntRange .d.> IntValue
 
 @enduml

@@ -42,6 +42,44 @@ Here's my UML:
 
 ![fizz buzz class diagram](FizzBuzz.png)
 
+Ah. Nice and complicated. Obviously there are better ways to do all of these things that I'm trying to do, but it's complicated for the sake of having many objects.
+
+Okay. Now I'll implement the C# first. This is how it's gonna go:
+
+ 1. The program will create a "TraditionalFizzBuzzer," a "ConsoleOutput," and an "IntRange" with options equal to 100 (for length)
+
+ 2. The program will then "map" the fizz buzzer function to all the values returned by the values() function in the range.
+
+ 3. The strings produced by that map will then be output using the console output
+
+However, at the top level, all of these concrete classes are abstracted away, leaving a very simple main method:
+
+```
+using System.Linq;
+
+namespace fizzbuzz {
+    class Program {
+        static void Main(string[] args) {
+            IRange range = new IntRange(100);
+            IValue[] values = range.Values();
+            IFizzBuzzer fizzBuzzer = new TraditionalFizzBuzzer();
+            IOutput output = new ConsoleOutput();
+            
+            var fizzBuzzedData = values.Select(
+                fizzBuzzer.InterceptValue
+            ).ToArray();
+            output.Output(fizzBuzzedData);
+        }
+    }
+}
+```
+
+Note that in practice, I'd probably use var for all the created objects, but for this example to show that I'm instancing objects as the interfaces they implement, I've left in the type name.
+
+But yeah. This works. It does fizz buzz, and it could easily be modified to include more number options by editing the TraditionalFizzBuzzer's intercept function, to include non-integer options by creating custom IRanges and FizzBuzzers, etc.
+
+Now I'll show how this can translate almost directly into Haskell.
+
 ## Build dependencies
 
  - Linux (since this is an example, I'm not bothering with making my makefile cross-platform and everything. Not super hard to change though)
