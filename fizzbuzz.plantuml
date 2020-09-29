@@ -1,0 +1,9 @@
+@startuml FizzBuzz
+
+interface Output {
+
+}
+
+interface 
+
+@enduml

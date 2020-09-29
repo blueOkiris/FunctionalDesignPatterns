@@ -1,0 +1,21 @@
+name:                fizzbuzz
+author:              "Dylan Turner"
+maintainer:          "dylantdmt@gmail.com"
+copyright:           "2020 Dylan Turner"
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  fizzbuzz:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - fizzbuzz
