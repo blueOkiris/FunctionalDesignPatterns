@@ -12,6 +12,11 @@ copyright:      2020 Dylan Turner
 build-type:     Simple
 
 library
+  exposed-modules:
+      FizzBuzzer
+      Output
+      Range
+      Value
   other-modules:
       Paths_fizzbuzz
   hs-source-dirs:

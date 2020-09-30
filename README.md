@@ -78,7 +78,28 @@ Note that in practice, I'd probably use var for all the created objects, but for
 
 But yeah. This works. It does fizz buzz, and it could easily be modified to include more number options by editing the TraditionalFizzBuzzer's intercept function, to include non-integer options by creating custom IRanges and FizzBuzzers, etc.
 
-Now I'll show how this can translate almost directly into Haskell.
+Now I'll show how this can translate almost directly into Haskell:
+
+```
+module Main where
+
+import Range(IRange(..), intRange)
+import FizzBuzzer(fizzBuzz, traditionalFizzBuzz)
+import Output(output, consoleOutput)
+
+main :: IO ()
+main = do
+    let range = intRange 100
+    let vals = values range
+    let fizzBuzzedData = map (fizzBuzz traditionalFizzBuzz) vals
+    consoleOutput fizzBuzzedData
+```
+
+Excluding the differences in syntax, you can see that the main method is almost identical to C#'s implementation.
+
+What I want to suggest here is that OOP isn't a paradigm. Instead it's a way of encapsulating code in the true paradigms which I argue are imperative (ultimately from Turing Machines) and functional (ultimately from Lambda Calculus).
+
+Just as this simple object system can be used in a functional paradigm, so too can other object systems, including common design patterns.
 
 ## Build dependencies
 
